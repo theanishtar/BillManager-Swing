@@ -1,0 +1,19 @@
+    
+
+            HƯỚNG DẪN SỬ DỤNG PHẦN MỀM
+
+                                Username:   dangth
+                                Password:   pc04349
+
+B1: Đăng nhập trên trang LOGIN_FORM
+    (Bạn có thể chick vào nút INFOR để tìm hiểu thêm)
+
+B2: Check vào ô "Sign in with admin permissions?" để đăng nhập vào quyền ADMIN 
+    (nếu không check chỉ có thể đăng nhập quyền user và khong thể UPDATE dữ liệu)
+
+B3: Hệ thống sẽ đưa tới trang Quản Lí Hóa Đơn tại đây bạn có thể
+        SAVE: để thêm dữ liệu mới
+        DELETE: để xóa dữ liệu
+        FIND: để tìm kiếm dữ liệu
+        PRINT: để in hóa đơn ra giấy
+        SORT: để sắp xếp dữ liệu
