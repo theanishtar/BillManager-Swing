@@ -50,7 +50,7 @@ public class OrdersManage extends javax.swing.JFrame {
         TimeRun();
         //loadData();
         btnDelete.setEnabled(false);
-        btnSave.setEnabled(false);
+//        btnSave.setEnabled(false);
         btnPrint.setEnabled(false);
         btnSort.setEnabled(false);
 
@@ -67,7 +67,7 @@ public class OrdersManage extends javax.swing.JFrame {
         //BAT LOI NULL CAC TRUONG
         HideErrorThongTinNull();
 
-        Main_Form frame_login = new Main_Form();
+        MainForm frame_login = new MainForm();
         if (admin == false) {
             //JOptionPane.showMessageDialog(this, "Bạn đã không đăng nhập với quyền quản trị nên chỉ có thể xem dữ liệu!");
             int ketQua = JOptionPane.showConfirmDialog(this, "Bạn đã không đăng nhập với quyền quản trị nên chỉ có thể xem dữ liệu! \n Bạn có muốn đăng nhập lại không?", "Thông báo", JOptionPane.YES_OPTION);
@@ -310,16 +310,6 @@ public class OrdersManage extends javax.swing.JFrame {
 
         model = new DefaultTableModel();
 
-        //Thêm dữ liệu vào list
-//        danhSach.add(new Orders("Trần Thị Mỹ Duyên", "Trà hoa cúc (đá)", "TH79", 32000, 7, "13-06-2022", 224000));
-//        danhSach.add(new Orders("Nguyễn Khánh Đan", "Bạc xỉu (đá)", "BX44", 20000, 1, "11-05-2022", 20000));
-//        danhSach.add(new Orders("Phùng Quốc Vinh", "Matcha đá xay", "MC043", 28000, 6, "25-04-2022", 168000));
-//        danhSach.add(new Orders("Đoàn Hiệp Sỹ", "Atiso đường phèn (nóng)", "AT57", 22000, 5, "07-05-2022", 110000));
-//        danhSach.add(new Orders("Lê Bích Vi", "Đen đá (không đường)", "DD05", 18000, 9, "14-06-2022", 162000));
-//        danhSach.add(new Orders("Lê Thị Ngọc Hân", "Cappuccino (nóng)", "CP31", 40000, 7, "15-06-2022", 280000));
-//        danhSach.add(new Orders("Nguyễn Thị Diễm Ngân", "SET Bánh ngọt 4C (matcha)", "BN789", 240000, 3, "09-06-2022", 720000));
-//        danhSach.add(new Orders("Hồ Phước Lộc", "Sữa tươi trân châu", "ST223", 28000, 9, "25-02-2022", 250000));
-
         model = new DefaultTableModel();
         //Tạo các cột
         model.addColumn("TÊN THU NGÂN");
@@ -342,11 +332,23 @@ public class OrdersManage extends javax.swing.JFrame {
     }
 
     public void fillToTable() {
-        model.setRowCount(0);
+        if(model!=null)
+            model.setRowCount(0);
+        
+        model = new DefaultTableModel();
+        //Tạo các cột
+        model.addColumn("TÊN THU NGÂN");
+        model.addColumn("TÊN SẢN PHẨM");
+        model.addColumn("MÃ SẢN PHẨM");
+        model.addColumn("GIÁ");
+        model.addColumn("SỐ LƯỢNG");
+        model.addColumn("NGÀY ORDER");
+        model.addColumn("THÀNH TIỀN");
         for (Orders index : danhSach) {
             //model.addRow(new Object[]{index.MSSV, index.hoTen, index.lop, index.moHoc, index.diem});
             model.addRow(new Object[]{index.tenThuNgan, index.tenSanPham, index.maSanPham, index.gia, index.soLuong, index.ngayOrder, index.thanhTien});
         }
+        tblList.setModel(model);
     }
 
     //Hiển thị Danh Sách lên Form
@@ -359,16 +361,7 @@ public class OrdersManage extends javax.swing.JFrame {
         txtNgayOrder.setText(danhSach.get(index).getNgayOrder());
         txtThanhTien.setText(danhSach.get(index).getThanhTien() + "");
         txtRecord.setText("Records: " + (index + 1) + " of " + danhSach.size());
-        tblList.setRowSelectionInterval(index, index);
-//        txtTenTN.setText(tblList.getValueAt(index, 0).toString());
-//        txtTenSP.setText(tblList.getValueAt(index, 1).toString());
-//        txtMaSp.setText(tblList.getValueAt(index, 2).toString());
-//        txtGia.setText(tblList.getValueAt(index, 3).toString());
-//        txtSoLuong.setText(tblList.getValueAt(index, 4).toString());
-//        txtNgayOrder.setText(tblList.getValueAt(index, 5).toString());
-//        txtThanhTien.setText(tblList.getValueAt(index, 6).toString());
-//        txtRecord.setText("Records: " + (index + 1) + " of " + danhSach.size());
-//        tblList.setRowSelectionInterval(index, index);
+        //tblList.setRowSelectionInterval(index, index);
     }
 
     /**
@@ -850,7 +843,7 @@ public class OrdersManage extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(153, 153, 255));
         jLabel9.setText("Sắp xếp theo: ");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, 100, 20));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 120, 20));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignment_GD1/icon/manager.png"))); // NOI18N
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 60, 60));
@@ -1246,11 +1239,13 @@ public class OrdersManage extends javax.swing.JFrame {
 
         if (checkValidate()) {
             danhSach.add(new Orders(txtTenTN.getText(), txtTenSP.getText(), txtMaSp.getText(), Float.parseFloat(txtGia.getText()), Integer.parseInt(txtSoLuong.getText()), txtNgayOrder.getText(), thanhTien));
-            model.setRowCount(0);
-            fillToTable();
+            
             JOptionPane.showMessageDialog(this, "Lưu thành công!");
             showDetail(danhSach.size()-1);
             saveFile();
+            if(model != null)
+                model.setRowCount(0);
+            fillToTable();
         } else {
             JOptionPane.showMessageDialog(this, error);
         }
@@ -1374,10 +1369,10 @@ public class OrdersManage extends javax.swing.JFrame {
         //HideErrorThongTinNull();
         //if (txtTenTN.getText().equals("") || txtMaSp.getText().equals("") || txtTenSP.getText().equals("")
         //|| txtGia.getText().equals("") || txtSoLuong.getText().equals("") || txtNgayOrder.getText().equals("")) {
-        Bill_Form bill = new Bill_Form(txtTenTN.getText(), txtMaSp.getText(), txtTenSP.getText(), txtGia.getText(), txtSoLuong.getText(), txtNgayOrder.getText());
+        BillForm bill = new BillForm(txtTenTN.getText(), txtMaSp.getText(), txtTenSP.getText(), txtGia.getText(), txtSoLuong.getText(), txtNgayOrder.getText());
         bill.setVisible(true);
         //}
-        //Bill_Form bill = new Bill_Form(txtTenTN.getText(), txtMaSp.getText(), txtTenSP.getText(), txtGia.getText(), txtSoLuong.getText(), txtNgayOrder.getText());
+        //Bill_Form bill = new BillForm(txtTenTN.getText(), txtMaSp.getText(), txtTenSP.getText(), txtGia.getText(), txtSoLuong.getText(), txtNgayOrder.getText());
         //int index = tblList.getSelectedRow();
         //
 //        txtTenTN.setText(danhSach.get(index).getTenThuNgan());
